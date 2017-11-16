@@ -4,6 +4,7 @@ LDLIBS = -Wall -g
 SRCDIR = src
 BUILDDIR = build
 TARGET = bin/crispy
+TARGETDIR = bin
 SRCEXT = cc
 
 SOURCES = $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
@@ -20,5 +21,5 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 		$(CC) -c $(CXXFLAGS) $(INC) $< -o $@
 
 clean :
-	rm build/*
-	rm bin/*
+	rm -f $(BUILDDIR)/*
+	rm -f $(TARGETDIR)/*
