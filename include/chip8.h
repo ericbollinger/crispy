@@ -1,11 +1,18 @@
+#include <stdlib.h>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+#include <GL/gl.h>
 
 class chip8 {
     public:
+        struct timespec req, rem;
+
         // Current opcode (2 bytes)
         unsigned short opcode;
 
@@ -45,11 +52,16 @@ class chip8 {
         // Store current state of each key on a hex keypad (0x0 to 0xF)
         unsigned char key[16];
 
+        // Font set, each character being 4 pixels wide and 5 pixels high
+        unsigned char chip8_fontset[80];
+
         // Draw flag determines whether or not to draw the screen each cycle
         bool drawFlag;
 
         void initialize();
         void loadGame(std::string);
         void emulateCycle();
+        void executeOpcode(unsigned short);
         void setKeys();
+        void testOpcodes();
 };
