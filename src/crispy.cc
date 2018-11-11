@@ -28,10 +28,61 @@ void display(void) {
     glutSwapBuffers();
 }
 
+void keyboardDown(unsigned char key, int x, int y) {
+    if (key == 27) {
+        exit(0);
+    }
+
+    switch(key) {
+        case '1':   chip.key[0x1] = 1; break;
+        case '2':   chip.key[0x2] = 1; break;
+        case '3':   chip.key[0x3] = 1; break;
+        case '4':   chip.key[0xC] = 1; break;
+
+        case 'q':   chip.key[0x4] = 1; break;
+        case 'w':   chip.key[0x5] = 1; break;
+        case 'e':   chip.key[0x6] = 1; break;
+        case 'r':   chip.key[0xD] = 1; break;
+
+        case 'a':   chip.key[0x7] = 1; break;
+        case 's':   chip.key[0x8] = 1; break;
+        case 'd':   chip.key[0x9] = 1; break;
+        case 'f':   chip.key[0xE] = 1; break;
+
+        case 'z':   chip.key[0xA] = 1; break;
+        case 'x':   chip.key[0x0] = 1; break;
+        case 'c':   chip.key[0xB] = 1; break;
+        case 'v':   chip.key[0xF] = 1; break;
+    }
+}
+
+void keyboardUp(unsigned char key, int x, int y) {
+    switch(key) {
+        case '1':   chip.key[0x1] = 0; break;
+        case '2':   chip.key[0x2] = 0; break;
+        case '3':   chip.key[0x3] = 0; break;
+        case '4':   chip.key[0xC] = 0; break;
+
+        case 'q':   chip.key[0x4] = 0; break;
+        case 'w':   chip.key[0x5] = 0; break;
+        case 'e':   chip.key[0x6] = 0; break;
+        case 'r':   chip.key[0xD] = 0; break;
+
+        case 'a':   chip.key[0x7] = 0; break;
+        case 's':   chip.key[0x8] = 0; break;
+        case 'd':   chip.key[0x9] = 0; break;
+        case 'f':   chip.key[0xE] = 0; break;
+
+        case 'z':   chip.key[0xA] = 0; break;
+        case 'x':   chip.key[0x0] = 0; break;
+        case 'c':   chip.key[0xB] = 0; break;
+        case 'v':   chip.key[0xF] = 0; break;
+    }
+}
+
 void initializeGraphics(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    //glutInitWindowSize(640,320);
     glutInitWindowSize(1280,640);
     glutInitWindowPosition(0,0);
     glutCreateWindow("Crispy - CHIP-8 Emulator");
@@ -42,7 +93,9 @@ void initializeGraphics(int argc, char** argv) {
     glOrtho(0,1,0,1,-1,1);
 
     glutDisplayFunc(display);
-    glutIdleFunc(display);
+//    glutIdleFunc(display);
+    glutKeyboardFunc(keyboardDown);
+    glutKeyboardUpFunc(keyboardUp);
 }
 
 int main(int argc, char **argv) {
